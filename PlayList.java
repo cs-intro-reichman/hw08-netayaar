@@ -154,11 +154,13 @@ class PlayList {
     public void remove(String title) {
         //// replace this comment with your code\
         // does nothing if index is negative or too big or if list is empty
+        if (this.size == 0) {
+            return;
+        }
         for (int i = 0; i < this.size; i ++) 
         {
             if (this.tracks[i].getTitle().equals(title)) {
                 remove(i);
-                size --;
                 return;
                 
             }
