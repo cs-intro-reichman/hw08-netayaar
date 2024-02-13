@@ -236,7 +236,6 @@ class PlayList {
         //// replace this statement with your code
         for (int i = 0; i < this.size -1; i++) 
         {
-            Track temp = new Track(null, null, i);
             int min = i;
 
             for (int k = i+1; k < this.size; k ++) 
@@ -244,10 +243,10 @@ class PlayList {
                 if (this.tracks[k].getDuration() < this.tracks[min].getDuration()) 
                 {
                    min = k;
-                   temp = tracks[i];
                 }
-            this.tracks[i] = this.tracks[k];
-            this.tracks[k] = temp;
+            Track temp = this.tracks[i];
+            this.tracks[i] = this.tracks[min];
+            this.tracks[min] = temp;
             }
         }
     }
