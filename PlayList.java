@@ -129,25 +129,27 @@ class PlayList {
         return true;
     }
      
-    /** Removes the track in the given index from this list.
+
+     /** Removes the track in the given index from this list.
      *  If the list is empty, or the given index is negative or too big for this list, 
      *  does nothing and returns -1. */
-    public int remove(int i) {
-        // If the list is empty, or the given index is negative or too big for this list, 
-        // does nothing and returns -1.
-        if (this.size == 0 || i < 0 || i >= this.size) {
-            return -1;    
-        } else {
-           
-            for (int j = i; j < this.size - 1; j++) {
-                this.tracks[j] = this.tracks[j + 1];
-            }
-           
-            this.size--;
+    public void remove(int i) {
+        //// replace this comment with your code
+        if (i < 0 || i >= size) {
+            // If the index is invalid, do nothing and return
+            return;
         }
-        return 0; // Indicate successful removal
+        
+        // Shift elements to the left 
+        for (int j = i; j < size - 1; j++) {
+            tracks[j] = tracks[j + 1];
+        }
+    
+        // Remove reference to the last element
+        tracks[size - 1] = null;
+        // -1 the size since we removed a track
+        size--;
     }
-
     /** Removes the first track that has the given title from this list.
      *  If such a track is not found, or the list is empty, or the given index
      *  is negative or too big for this list, does nothing. */
@@ -167,22 +169,28 @@ class PlayList {
         remove (0);
     }
     
-    /** Adds all the tracks in the other list to the end of this list. 
+       /** Adds all the tracks in the other list to the end of this list. 
      *  If the total size of both lists is too large, does nothing. */
     //// An elegant and terribly inefficient implementation.
-     public void add(PlayList other) {
+    public void add(PlayList other) {
         //// replace this comment with your code
-        if (this.size + other.size > maxSize)
-        { 
+        int totalSize = size + other.size;
+         if (totalSize > tracks.length) {
+        // If the total size of both lists is too large, do nothing and return
         return;
         }
-            
-        for (int i = this.size, j = 0; i < this.size + other.size; i++, j++) 
-            {   this.tracks [i] = other.tracks [j];
-            }
         
-        size += other.size;
-     }
+        else
+        {
+            // Copy tracks from other playlist to the end of this playlist
+            for (int i = 0; i < other.size; i++) {
+            /// Use the existing add(Track track) method to add each track from the other playlist
+            add(other.tracks[i]); 
+
+        }
+        
+        }
+    }
     
     /** Returns the index in this list of the track that has the shortest duration,
      *  starting the search in location start. For example, if the durations are 
